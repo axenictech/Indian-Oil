@@ -1,0 +1,53 @@
+<% while activity.present? %>
+
+<tr style="color:#000;">
+  <td><%= activity.activity_id %></td>
+  <td class="center"><%= activity.name %></td>
+  <td class="center"><%= activity.user_name %></td>
+  <td class="center"><%= activity.pre_activity.try(:activity).try(:name) %></td>
+  <td class="center"><%= activity.duration %> Days</td>
+  <td class="center">
+    <% if activity.status == 'REJECTED' %>
+    <span class="label-error label label-default">
+    <%= link_to activity.status, '#', onclick: 'showRemarksActivityAdmin(this)', data: { actremarks: activity.remark } %>
+    </span>
+    <% else %>
+    <span class="label-success label label-default"><%= activity.status %></span>
+    <% end %>
+  </td>
+  <td>
+    <%= activity.activity_type %>
+  </td>
+  <td class="center">
+    
+    <a class="btn btn-info moveActivity" data-href="/job/<%=job.id%>/job_activity/<%=activity.id%>?&act_action=up" onclick="moveActivity(this);"> 
+      <i class="glyphicon glyphicon-arrow-up icon-white"></i>
+    </a>
+    <a class="btn btn-info" data-href="/job/<%=job.id%>/job_activity/<%=activity.id%>?&act_action=down" onclick="moveActivity(this);">
+      <i class="glyphicon glyphicon-arrow-down icon-white"></i>
+      
+    </a>
+    <a class="btn btn-danger" href="#">
+      <i class="glyphicon glyphicon-trash icon-white"></i>
+      
+    </a>
+  </td>
+</tr>
+<%- activity = activity.next_activity %>
+<%- end %>
+
+<div id="dialog-remarks-admin" class="modal fade" aria-hidden="true" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Given Remarks</h4>
+      </div>
+      <div class="modal-body" id='remarks-given-admin'>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div>

@@ -1,0 +1,36 @@
+<div>
+  <ul class="breadcrumb">
+    <li>
+      <a href="#">Home</a>
+    </li>
+    <li>
+      <a href="#">New Job</a>
+    </li>
+  </ul>
+</div>
+
+
+  <div>
+    <div>
+      <%= form_for @job do |f| %>
+        <div>
+          <label>Vessel Capacity</label>
+	  <%= select :capacity,:val, options_for_select(['40K', '20K'], '40K') %>
+        </div>
+        <div>
+          <label>Vessel Type</label>
+	  <%= select :job_type,:val, options_for_select(['T', 'V'], 'T') %>
+        </div>
+        <div>
+          <label>Start Date</label>
+          <%= f.date_field :start_date, type:"date", value: Date.today,style: "border:1px solid;"  %>
+        </div>
+        <div  style="margin-top:10px;">
+          <label>Vessel Number</label>
+          <%= f.text_field :name, style: "border:1px solid;" %>
+        </div>
+        <%= f.submit "Create Job" %>
+      <%- end %>
+    </div>
+  </div>
+</div>

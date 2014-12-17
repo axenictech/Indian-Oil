@@ -1,0 +1,82 @@
+<div>
+  <ul class="breadcrumb">
+    <li>
+      <a href="#">Home</a>
+    </li>
+    <li>
+      <a href="#">Dashboard</a>
+    </li>
+  </ul>
+</div>
+
+
+<div class="row">
+  <div class="box col-md-12">
+  <div style="width:100%;text-align:right;margin-bottom:15px;">
+   <%= link_to "View Activities", activities_path %>
+    &nbsp&nbsp
+      <%= link_to "Upload Activities", upload_activities_path %>
+    &nbsp&nbsp
+      <%= link_to "Create new Job", new_job_path %>
+    </div>
+    <div class="box-inner">
+      <div class="box-header well">
+        <h2><i class="glyphicon glyphicon-info-sign"></i> Ongoing Projects</h2>
+        <div class="box-icon">
+          <a href="#" class="btn btn-setting btn-round btn-default">
+	    <i class="glyphicon glyphicon-cog"></i>
+	  </a>
+          <a href="#" class="btn btn-minimize btn-round btn-default">
+	    <i class="glyphicon glyphicon-chevron-up"></i>
+	  </a>
+          <a href="#" class="btn btn-close btn-round btn-default">
+	    <i class="glyphicon glyphicon-remove"></i>
+	  </a>
+        </div>
+      </div>
+      
+
+      <div class="box-content">
+        <input placeholder="Search" class="search-query form-control col-md-10" name="query"
+               type="text">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Status</th>
+              <th>Start Date</th>
+	      <th>Current Status</th>
+	      <th>Present Activity</th>
+	      <th>Capacity</th>
+            </tr>
+          </thead>
+          <tbody>
+	    <%- @jobs.each do |job| %>
+            <tr>
+              <td class="center" style="color:#000;"><%= link_to job.name , job_path(job), style: "color:#000;" %></td>
+              <td class="center">
+                <span class="label-success label label-default">Active</span>
+              </td>
+              <td class="center" style="color:#000;"><%= job.start_date.to_date %></td>
+              <td><%= job.current_status %></td>
+	      <td><%= job.present_activity %></td>
+	      <td>-</td>
+            </tr>
+            <%- end %>
+          </tbody>
+        </table>
+	<%= will_paginate @jobs %>
+        <ul class="pagination pagination-centered hide">
+	  <li><a href="#">Prev</a></li>
+          <li class="active">
+            <a href="#">1</a>
+          </li>
+          <li><a href="#">2</a></li>
+          <li><a href="#">3</a></li>
+          <li><a href="#">4</a></li>
+          <li><a href="#">Next</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

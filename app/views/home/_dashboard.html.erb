@@ -1,0 +1,63 @@
+
+      
+        <table class="table">
+          <thead>
+            <tr>
+            <th>Id</th>
+              <th>Name</th>
+	      <th>Job</th>
+	      <th>Type</th>
+              <th>Action</th>
+	      <th>Further Action</th>
+        <th>Status</th>
+              <th>Start Date</th>
+	      <th>End Date</th>
+            </tr>
+          </thead>
+          <tbody>
+	    <%- @job_activities.each do |job_activity| %>
+            <tr>
+             <td style="color:#000;">
+    <%= job_activity.activity_id %>
+        </td>
+              <td class="center" style="color:#000;"><%= job_activity.activity.name %></td>
+	      <td style="color:#000;"><%= job_activity.job.name %></td>
+	      <td style="color:#000;">
+		<%= job_activity.activity_type %>
+	      </td>
+              <td class="center">
+                <span class="label-success label label-default"><%= link_to "Done", done_job_path(job_activity) %></span>
+		<%- if job_activity.status != "WIP" %>
+		<span class="label-warning label label-default"><%= link_to "WIP", wip_job_path(job_activity) %></span>
+		<%- end %>
+              </td>
+	      <td>
+		<%= select_tag "reject", options_from_collection_for_select(job_activity.job.job_activities.done_activity(job_activity.activity_type), "id", "id_name"), prompt: "Select something", class: "col-md-6", id: "reject_#{job_activity.id}", style: "color:#000;" %>
+		<%= link_to "Reject", '#', onclick: 'rejectActivity(this)', data: { actid: job_activity.id }, style: "color:#000;" %>
+            </td>
+              <td class="center" style="color:#000;">
+              <% if job_activity.status == 'REJECTED'%>
+              <%= link_to job_activity.status, '#', onclick: 'showRemarksActivity(this)', data: { actremarks: job_activity.remark }, style: "color:#000;" %>
+              <% else %>
+              <%= job_activity.status %>
+              <% end %>
+              </td>
+	      </td>
+              <td class="center" style="color:#000;"><%= job_activity.start_date.to_date %></td>
+	      <td class="center" style="color:#000;"><%= job_activity.end_date.to_date %></td>
+            </tr>
+            <%- end %>
+          </tbody>
+        </table>
+	<%= will_paginate @job_activities %>
+        <ul class="pagination pagination-centered hide">
+	  <li><a href="#">Prev</a></li>
+          <li class="active">
+            <a href="#">1</a>
+          </li>
+          <li><a href="#">2</a></li>
+          <li><a href="#">3</a></li>
+          <li><a href="#">4</a></li>
+          <li><a href="#">Next</a></li>
+        </ul>
+      </div>

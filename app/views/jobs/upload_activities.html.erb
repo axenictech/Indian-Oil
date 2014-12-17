@@ -1,0 +1,47 @@
+<div>
+  <ul class="breadcrumb">
+    <li>
+      <a href="#">Home</a>
+    </li>
+    <li>
+      <a href="#"> Manage Activity</a>
+    </li>
+  </ul>
+</div>
+<div class="row">
+  <div class="box col-md-12">
+    <div class="box-inner">
+      <div class="box-header well" data-original-title="">
+        <h2><i class="glyphicon glyphicon-user"></i>Upload new Activities </h2>
+
+        <div class="box-icon">
+          <a href="#" class="btn btn-minimize btn-round btn-default">
+	    <i class="glyphicon glyphicon-chevron-up"></i>
+	  </a>
+          <a href="#" class="btn btn-close btn-round btn-default">
+	    <i class="glyphicon glyphicon-remove"></i>
+	  </a>
+        </div>
+      </div>
+
+
+
+<div  class="box-content">
+<%=form_for :activities, url: upload_activities_save_path,html: {multipart: true}, remote: true do |form|%>
+<%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
+<div class="row">
+<label class="box col-md-3">Select Spreadsheet File</label>
+<div class="box col-md-3"><%= file_field 'upload', 'spreadsheet' %></div>
+</div>
+<div class="row">
+<div class="box col-md-10">
+<%=form.submit "Upload Activities"%>&nbsp&nbsp(use 97-2003 compatible Excel document)
+</div>
+</div>
+<%end%>
+      </div>
+    </div>
+  </div>
+  <!--/span-->
+
+</div><!--/row-->
