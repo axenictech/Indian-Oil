@@ -6,8 +6,8 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   
   get '/job/:id/job_activity/:job_activity_id' => 'jobs#move_activity', as: 'move_activity'
-  get "/job_activity/:id/done" => "job_activities#done_job", as: "done_job"
-  get "/job_activity/:id/wip" => "job_activities#wip_job", as: "wip_job"
+  post "/job_activity/done" => "job_activities#done_job", as: "done_job"
+  post "/job_activity/wip" => "job_activities#wip_job", as: "wip_job"
   post "/job_activity/reject" => "job_activities#reject_job", as: "reject_job"
   post "/jobs/filter" => "jobs#filter", as: "filter_activity"
   post "/jobs/filter_user_activity" => "jobs#filter_user_activity", as: "filter_user_activity"
@@ -15,8 +15,12 @@ Rails.application.routes.draw do
   post "/jobs/upload_activities_save" => "jobs#upload_activities_save", as: "upload_activities_save"
   get "/jobs/activities" => "jobs#activities", as: "activities"
   get "/dashboard" => "home#dashboard"
+  get "/jobs/report_home" => "jobs#report_home", as: "report_home"
+  get "/jobs/holiday" => "jobs#holiday", as: "holiday"
+  post "/jobs/add_holiday" => "jobs#add_holiday", as: "add_holiday"
+  post "/jobs/report_filter" => "jobs#report_filter", as: "report_filter"
+  get "/jobs/:id/delete_holiday" => "jobs#delete_holiday", as: "delete_holiday"
   root 'home#index'
-  
   resources :jobs
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

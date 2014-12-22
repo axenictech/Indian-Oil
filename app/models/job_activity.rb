@@ -5,7 +5,7 @@ class JobActivity < ActiveRecord::Base
   belongs_to :job
   belongs_to :activity
   belongs_to :rejector, class_name: 'User', foreign_key: :rejector_id
-  scope :master_activity, lambda{ where(previous_activity: nil) }
+  scope :master_activity, lambda{ where("previous_activity is null") }
   scope :done_activity, -> (activity_type){ where(status: "DONE", activity_type: activity_type) }
 
   # validates :name, uniqueness: { scope: [:job_id, :activity_type] }, presence: true
@@ -13,6 +13,7 @@ class JobActivity < ActiveRecord::Base
    return self.activity_id.to_s+"-"+self.name
   end
 
+ 
   def move_next
     next_act = self.next_activity
     if next_act.present?
@@ -60,8 +61,8 @@ class JobActivity < ActiveRecord::Base
   end
   
   def done_job
-    self.update_attributes!({status: "DONE"})
-    if self.next_activity.present?
+    self.update_attributes!({status: "DONE",remark: self.remark})
+     if self.next_activity.present?
       self.next_activity.update_attributes({status: "PENDING"}) 
     end
   end
@@ -78,9 +79,9 @@ class JobActivity < ActiveRecord::Base
   end
 
   def wip_job
-    self.update_attributes({status: "WIP"})
+    self.update_attributes({status: "WIP",remark: self.remark})
   end
-
+  
   
   
 end

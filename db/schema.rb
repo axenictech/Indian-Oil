@@ -11,10 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141213044600) do
-
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+ActiveRecord::Schema.define(version: 20141219082740) do
 
   create_table "activities", force: true do |t|
     t.string   "name"
@@ -27,6 +24,12 @@ ActiveRecord::Schema.define(version: 20141213044600) do
     t.datetime "updated_at"
     t.string   "activity_type"
     t.integer  "rejected_activity"
+  end
+
+  create_table "holidays", force: true do |t|
+    t.date     "holiday"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "job_activities", force: true do |t|

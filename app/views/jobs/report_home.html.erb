@@ -1,0 +1,66 @@
+<div>
+  <ul class="breadcrumb">
+    <li>
+      <a href="#">Home</a>
+    </li>
+    <li>
+      <a href="#"> Manage Activity</a>
+    </li>
+  </ul>
+</div>
+<div class="row">
+  <div class="box col-md-12">
+    <div class="box-inner">
+      <div class="box-header well" data-original-title="">
+        <h2><i class="glyphicon glyphicon-user"></i>Report </h2>
+
+        <div class="box-icon">
+          <a href="#" class="btn btn-minimize btn-round btn-default">
+	    <i class="glyphicon glyphicon-chevron-up"></i>
+	  </a>
+          <a href="#" class="btn btn-close btn-round btn-default">
+	    <i class="glyphicon glyphicon-remove"></i>
+	  </a>
+        </div>
+      </div>
+
+
+
+<div  class="box-content">
+<div class="row">
+<div class="box col-md-12">
+<%=form_for :report, url: report_filter_path, remote: true do |form|%>
+<label class="box col-md-2">Select Job</label>
+<div class="box col-md-2"><%=form.select(:job,@jobs.collect{|j| [j.name,j.id]},{class: "form-cntrol"})%></div>
+
+
+<label class="box col-md-2">Select User</label>
+<div class="box col-md-2"><%=form.select( :user,@users.collect{|j| [j.email.split('@').first,j.id]},{:prompt => 'ALL'},{class: "form-cntrol"})%>&nbsp &nbsp<%=form.submit "Filter"%></label></div>
+<%end%>
+</div>
+</div>
+
+<div  class="box-content">
+        <table class="table table-striped table-bordered table-responsive display nowrap dataTable dtr-inline activityTabel">
+          <thead>
+            <tr>
+              <th>Sr.No.</th>
+              <th>Description</th>
+              <th>Assigned To</th>
+              <th>Planned Duration</th>                            
+              <th>Start Date</th>
+              <th>Actual Duration</th>
+              <th>Status</th>
+              </tr>
+          </thead>
+          <tbody>
+           
+          </tbody>
+        </table>
+      </div>
+
+</div>
+</div>
+</div>
+<!--/span-->
+</div><!--/row-->

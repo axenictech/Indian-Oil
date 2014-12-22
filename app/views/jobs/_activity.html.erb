@@ -5,7 +5,8 @@
   <td class="center"><%= activity.name %></td>
   <td class="center"><%= activity.user_name %></td>
   <td class="center"><%= activity.pre_activity.try(:activity).try(:name) %></td>
-  <td class="center"><%= activity.duration %> Days</td>
+
+  <td class="center"> <%= activity.duration-Holiday.where("holiday between ? and ?",activity.start_date.change(year: 0000),activity.end_date.change(year: 0000)).all.count %> Days</td>
   <td class="center">
     <% if activity.status == 'REJECTED' %>
     <span class="label-error label label-default">

@@ -74,6 +74,7 @@ class JobsController < ApplicationController
 
   def upload_activities_save
      params.permit!
+  begin
      book = Spreadsheet.open(params["upload"]["spreadsheet"].open, 'rb')
      Activity.destroy_all
      0.upto 1 do |sheet_no|
@@ -93,10 +94,43 @@ class JobsController < ApplicationController
                activity.save
           end
     end
+  rescue Exception=>e
+      redirect_to upload_activities_path
+      return
+  end
       redirect_to activities_path
   end
 
   def activities
     @activities=Activity.all
   end
+
+  def report_home
+    @jobs=Job.all
+    @users=User.all.where("id != 1")
+  end
+  def report_filter
+    params.permit!
+    job=Job.where(id: params["report"]["job"]).take
+    if params["report"]["user"] != ""
+       @activities=job.job_activities.where(user_id: params["report"]["user"]).all
+    else
+       @activities=job.job_activities.all
+    end 
+   end
+
+   def holiday
+    @holidays=Holiday.all
+   end
+   def add_holiday
+    begin
+    Holiday.create(holiday: DateTime.parse(params[:holiday][:date]).change(year: 0000))
+    rescue Exception=>e
+    end
+     redirect_to holiday_path
+   end
+   def delete_holiday
+     Holiday.find(params[:id]).destroy
+     redirect_to holiday_path
+   end
 end

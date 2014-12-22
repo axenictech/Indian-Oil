@@ -1,0 +1,22 @@
+<% @activities.all.each do |activity| %>
+<tr style="color:#000;">
+  <td><%= activity.activity_id %></td>
+  <td class="center"><%= activity.name %></td>
+  <td class="center"><%= activity.user_name %></td>
+  <td class="center"><%= activity.duration-Holiday.where("holiday between ? and ?",activity.start_date.change(year: 0000),activity.end_date.change(year: 0000)).all.count %> Days</td>
+ <td><%= activity.start_date %></td>
+  <td>
+  <%begin%>
+    <% if activity.status != "CREATED" && activity.status != "PENDING" %>
+    <% if activity.activity_id == 1 %>
+    <%= (activity.updated_at.to_date - activity.start_date.to_date).to_i%>
+    <%else%>
+    <%= (activity.updated_at.to_date - activity.pre_activity.updated_at.to_date).to_i%>
+    <%end%>
+    <%end%>
+    <%rescue 
+    end%>
+  </td>
+  <td><%= activity.status %></td>
+  </tr>
+<%- end %>

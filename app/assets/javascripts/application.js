@@ -48,6 +48,18 @@ function rejectActivity(self){
 	}
 };
 
+function doneActivity(self){
+		$("#dialog-actdone").modal({ keyboard: false });
+		$("#id").val($(self).data('actid'));
+		};
+
+
+function wipActivity(self){
+		$("#dialog-actwip").modal({ keyboard: false });
+		$("#id_wip").val($(self).data('actid'));
+		};
+
+
 // Open a popup to show remarks for rejected activity
 function showRemarksActivity(self){
 	remarks = $(self).data('actremarks');

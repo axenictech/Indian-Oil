@@ -26,9 +26,9 @@
 		<%= job_activity.activity_type %>
 	      </td>
               <td class="center">
-                <span class="label-success label label-default"><%= link_to "Done", done_job_path(job_activity) %></span>
+                <span class="label-success label label-default"><%= link_to "Done","#",  onclick: 'doneActivity(this)', data: { actid: job_activity.id }%></span>
 		<%- if job_activity.status != "WIP" %>
-		<span class="label-warning label label-default"><%= link_to "WIP", wip_job_path(job_activity) %></span>
+		<span class="label-warning label label-default"><%= link_to "WIP", "#",onclick: 'wipActivity(this)', data: { actid: job_activity.id } %></span>
 		<%- end %>
               </td>
 	      <td>
